@@ -337,25 +337,57 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Preload ImageURLs from text file with better error handling
-    fetch("https://raw.githubusercontent.com/Monaruku/Monaruku.github.io/refs/heads/main/ImageLinks.txt")
+    // // Preload ImageURLs from text file with better error handling
+    // fetch("https://raw.githubusercontent.com/Monaruku/Monaruku.github.io/refs/heads/main/ImageLinks.txt")
+    //     .then(response => {
+    //         if (!response.ok) {
+    //             throw new Error(`HTTP error! Status: ${response.status}`);
+    //         }
+    //         return response.text();
+    //     })
+    //     .then(text => {
+    //         const lines = text.split('\n').filter(line => line.trim() !== '');
+    //         if (lines.length === 0) {
+    //             throw new Error("No image URLs found in the file");
+    //         }
+    //         imageUrls = lines;
+    //         console.log("Image URLs loaded:", imageUrls.length);
+    //         return loadRandomImages();
+    //     })
+    //     .catch(error => {
+    //         console.error("Error fetching image links:", error);
+    //         imageUrls = [];
+    //         imagesLoaded = true;
+    //         updateCombinedMedia();
+    //     });
+
+    // Preload ImageURLs using GitHub API method (similar to video preloading)
+    fetch("https://api.github.com/repos/Monaruku/Monaruku.github.io/contents/Image/Event%20Photos")
         .then(response => {
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
-            return response.text();
+            return response.json();
         })
-        .then(text => {
-            const lines = text.split('\n').filter(line => line.trim() !== '');
-            if (lines.length === 0) {
-                throw new Error("No image URLs found in the file");
+        .then(data => {
+            // Filter for image files (jpg, jpeg, png)
+            const imageFiles = data.filter(file => 
+                file.name.toLowerCase().endsWith('.jpg') || 
+                file.name.toLowerCase().endsWith('.jpeg') || 
+                file.name.toLowerCase().endsWith('.png')
+            );
+            
+            if (imageFiles.length === 0) {
+                throw new Error("No image files found in the repository folder");
             }
-            imageUrls = lines;
+            
+            // Get download URLs for all images
+            imageUrls = imageFiles.map(file => file.download_url);
             console.log("Image URLs loaded:", imageUrls.length);
             return loadRandomImages();
         })
         .catch(error => {
-            console.error("Error fetching image links:", error);
+            console.error("Error fetching image links from GitHub:", error);
             imageUrls = [];
             imagesLoaded = true;
             updateCombinedMedia();
