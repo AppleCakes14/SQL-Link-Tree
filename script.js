@@ -328,6 +328,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     const shareCards = document.querySelectorAll('#others, #others_insta');
                     shareCards.forEach(card => {
                         card.classList.remove('disabled-card');
+                        // Update the text to the appropriate sharing text based on language
+                        const cardId = card.id;
+                        const currentLang = (isEnglish) ? "_en" : "_cn";
+                        card.querySelector('h3').textContent = text_lang[cardId + currentLang];
                     });
                 }
             } catch (error) {
