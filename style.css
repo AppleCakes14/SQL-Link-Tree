@@ -189,16 +189,35 @@ h1 {
     }
 
     .buttons-grid .card h3  {
-        font-size: 0.9rem;
+        font-size: 1.1rem;
     }
 
     .footer p {
-        font-size: 0.9rem;
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .buttons-grid {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .buttons-grid .card {
+        width: 56%;
+        padding: 0px;
+    }
+
+    .buttons-grid .card h3 {
+        font-size: 1.3rem;
+    }
+
+    .footer p {
+        font-size: 1.1rem;
     }
 }
 
 /* For smaller screens */
-@media (max-width: 480px) {
+@media (max-width: 400px) {
     .buttons-grid {
         grid-template-columns: repeat(1, 1fr);
     }
@@ -213,7 +232,7 @@ h1 {
     }
 
     .footer p {
-        font-size: 0.9rem;
+        font-size: 1.1rem;
     }
 }
 
