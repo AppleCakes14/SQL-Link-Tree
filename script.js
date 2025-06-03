@@ -245,14 +245,16 @@ document.addEventListener("DOMContentLoaded", function () {
             savedImageFiles = files;
             console.log("Images loaded successfully:", files.length);
 
+            imagesLoaded = true;
+            updateCombinedMedia();
+            hideLoadingScreen();
             return files;
         } catch (error) {
             console.error("Error in loadRandomImages:", error);
-            return [];
-        } finally {
-            videosLoaded = true;
+            imagesLoaded = true;
             updateCombinedMedia();
             hideLoadingScreen();
+            return [];
         }
     }
 
@@ -278,15 +280,18 @@ document.addEventListener("DOMContentLoaded", function () {
             } else {
                 console.error("Failed to load video");
                 savedVideoFiles = [];
-            }   
-            return savedVideoFiles;
-        } catch (error) {
-            console.error("Error in loadRandomVideos:", error);
-            return [];
-        } finally {
+            }
+
             videosLoaded = true;
             updateCombinedMedia();
             hideLoadingScreen();
+            return savedVideoFiles;
+        } catch (error) {
+            console.error("Error in loadRandomVideos:", error);
+            videosLoaded = true;
+            updateCombinedMedia();
+            hideLoadingScreen();
+            return [];
         }
     }
 
