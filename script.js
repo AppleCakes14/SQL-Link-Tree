@@ -45,7 +45,8 @@ document.addEventListener("DOMContentLoaded", function () {
     function load_lang() {
         var currentLang = (isEnglish) ? "_en" : "_cn";
         //const media_list = ['tiktok', 'rednote', 'google', 'fb', 'insta', 'others', 'store', 'others_fixed'];
-        const media_list = ['rednote', 'fb', 'insta', 'others', 'others_insta'];
+        // const media_list = ['rednote', 'fb', 'insta', 'others', 'others_insta'];
+        const media_list = ['rednote', 'fb', 'insta'];
         media_list.forEach(media => {
             document.getElementById(media).querySelector('h3').textContent = text_lang[media + currentLang];
         });
