@@ -766,9 +766,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-
-
-
     //Get Random Line from preloaded contents
     function getLines(mode) {
         const randomLines = [];
