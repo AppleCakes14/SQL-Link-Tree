@@ -28,18 +28,6 @@ document.addEventListener("DOMContentLoaded", function () {
         'cta_en': 'Share now!',
         'cta_cn': '马上分享吧!',
     }
-
-    // let isIOS = false;
-    // //Due to a bug, Share to Others button will temporarily be disable on the iOS side
-    // if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
-    //     const othersDiv = document.getElementById('others_xhs');
-
-    //     othersDiv.style.display = "none";
-    //     isIOS = true;
-    // }
-
-
-
     let isEnglish = true;
 
     function load_lang() {
@@ -64,47 +52,11 @@ document.addEventListener("DOMContentLoaded", function () {
         load_lang();
     });
 
-    // Define the links
-    /*
-    const links = {
-        'Facebook Page': 'https://www.facebook.com/sharer/sharer.php?u=https://www.facebook.com/SQLEstream/',
-        'Facebook': 'https://www.facebook.com/SQLEstream/',
-        "脸书": 'https://www.facebook.com/SQLEstream/',
-        'FacebookIOS': 'fb://page/110600357296339',
-        'Instagram': 'https://www.instagram.com/sqlestream/?hl=ms',
-        'Google review': 'https://search.google.com/local/writereview?placeid=ChIJd904jxpTzDER2KhXom8b_zI',
-        '谷歌评论': 'https://search.google.com/local/writereview?placeid=ChIJd904jxpTzDER2KhXom8b_zI',
-        'Red note': 'Red note',
-        '小红书': 'Red note',
-        'TikTok': 'TikTok',
-        'Share': 'Share',
-        '分享': 'Share'
-    };*/
-
     const links = {
         'fb': 'https://www.facebook.com/SQLEstream/',
         'insta': 'https://www.instagram.com/sqlestream/?hl=ms',
         'google': 'https://search.google.com/local/writereview?placeid=ChIJd904jxpTzDER2KhXom8b_zI',
     };
-
-    // Tiktok Authentication class
-    // const tiktokAuthentication = new Authentication({
-    //     client_key: 'sbawgv8e7j4nbi22wy',
-    //     client_secret: 'a9UD0KvMZd3XZHie9K6zLYNvndnFDhNf'
-    // });
-
-    // // Must match the URI registered in Sandbox/Production
-    // const redirectUri = 'https://monaruku.github.io/tiktok_post_vid.html';
-
-    // const tiktokScopes = [
-    //     'user.info.basic',
-    //     'video.upload',
-    //     'video.publish'
-    // ];
-
-    // // Get TikTok login URL
-    // const tiktokAuthenticationUrl = tiktokAuthentication.getAuthenticationUrl(redirectUri, tiktokScopes);
-
     //Loading Screen Stuff-------------------------------------------
     function hideLoadingScreen() {
         const loader = document.getElementById("loading-screen");
@@ -114,7 +66,6 @@ document.addEventListener("DOMContentLoaded", function () {
         main.style.display = "block";
     }
     //----------------------------------------------------------------
-
 
     //Download image from url thru CORS proxy
     async function fetchImageAsFile(url, fileName) {
@@ -342,30 +293,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // // Preload ImageURLs from text file with better error handling
-    // fetch("https://raw.githubusercontent.com/Monaruku/Monaruku.github.io/refs/heads/main/ImageLinks.txt")
-    //     .then(response => {
-    //         if (!response.ok) {
-    //             throw new Error(`HTTP error! Status: ${response.status}`);
-    //         }
-    //         return response.text();
-    //     })
-    //     .then(text => {
-    //         const lines = text.split('\n').filter(line => line.trim() !== '');
-    //         if (lines.length === 0) {
-    //             throw new Error("No image URLs found in the file");
-    //         }
-    //         imageUrls = lines;
-    //         console.log("Image URLs loaded:", imageUrls.length);
-    //         return loadRandomImages();
-    //     })
-    //     .catch(error => {
-    //         console.error("Error fetching image links:", error);
-    //         imageUrls = [];
-    //         imagesLoaded = true;
-    //         updateCombinedMedia();
-    //     });
-
     // Preload ImageURLs using GitHub API method (similar to video preloading)
     fetch("https://api.github.com/repos/Monaruku/Monaruku.github.io/contents/Image/Event%20Photos")
         .then(response => {
@@ -430,86 +357,10 @@ document.addEventListener("DOMContentLoaded", function () {
             updateCombinedMedia();
         });
 
-
-
-
-    // async function loadRandomImagesWA() {
-    //     // Shuffle and select
-    //     const selectedUrls = "https://raw.githubusercontent.com/Monaruku/Monaruku.github.io/refs/heads/main/Image/Event%20Photos/2025-LHDN-E-Invoice-Seminar-Poster.jpg";
-    //     console.log("Selected URLs:", selectedUrls);
-
-    //     // Fetch and convert
-    //     const files = await fetchImageAsFile(selectedUrls, "image1.jpg");
-    //     //const files = (await Promise.all(filePromises)).filter(Boolean);
-
-    //     // Save to array
-    //     savedImageFilesWA = files;
-    //     //hideLoadingScreen();
-    //     console.log(savedImageFilesWA);
-    // }
-
-    // async function loadRandomVideosWA() {
-    //     // Use a specific video URL
-    //     const selectedUrl = "https://raw.githubusercontent.com/AppleCakes14/SQL-Link-Tree/main/Videos/final-1747902221090.mp4";
-    //     console.log("Selected Video URL:", selectedUrl);
-
-    //     // Fetch and convert
-    //     const file = await fetchVideoAsFile(selectedUrl, "video1.mp4");
-
-    //     // Save to variable
-    //     savedVideoFilesWA = file;
-    //     console.log("Video loaded:", savedVideoFilesWA);
-    // }
-
-    // // Run both functions and combine results when done
-    // Promise.all([loadRandomImagesWA(), loadRandomVideosWA()])
-    //     .then(() => {
-    //         // Create combined media files with video first, then image
-    //         combinedMediaFilesWA = [];
-
-    //         // Add video first if it exists
-    //         if (savedVideoFilesWA) {
-    //             combinedMediaFilesWA.push(savedVideoFilesWA);
-    //         }
-
-    //         // Add image if it exists
-    //         if (savedImageFilesWA) {
-    //             combinedMediaFilesWA.push(savedImageFilesWA);
-    //         }
-
-    //         console.log("Combined media files(WA):", combinedMediaFilesWA);
-    //     })
-    //     .catch(error => {
-    //         console.error("Error loading media files:", error);
-    //     });
-
-
-
-
     //The actual share Image function, basically retrieve saved images and send them to share
     async function shareImages(mode) {
-
-        //     // Shuffle and pick imageAmt of random images
-        //     const shuffledUrls = imageUrls.sort(() => 0.5 - Math.random());
-        //     const selectedUrls = shuffledUrls.slice(0, imageAmt);
-        //     console.log(selectedUrls);
-
-
-        //   // Fetch images and convert to File objects
-        //   const filePromises = selectedUrls.map((url, index) =>
-        //     fetchImageAsFile(url, `image${index + 1}.jpg`)
-        //   );
-
-
         if (mode == 1)            //Normal Mode
         {
-            // const files; // Assign the images to be shared
-            // if (files.length > 0 && navigator.canShare && navigator.canShare({ files })) {
-
-            // } else {
-            // console.log("Your browser does not support sharing multiple files or image fetch failed.");
-            // }
-
             const dummyJpgDataUrl =
                 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxMTERUTEhMWFhUXFxgYFxcYGBgYGBcXGBgXFxgYGBgYHSggGBolHRgXITEhJSkrLi4uFx8zODMtNygtLisBCgoKDg0OGhAQGy0lICUvLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLf/AABEIAJABWgMBIgACEQEDEQH/xAAbAAABBQEBAAAAAAAAAAAAAAAFAQIDBAYAB//EAD0QAAIBAgMFBQYFAwMFAAAAAAABAgMRBBIhMQVBUWFxgZGh8BMikQcjQlJicoKx0eHwM2LhFjNTc5Ik/8QAGgEAAgMBAQAAAAAAAAAAAAAAAAQCAwUBBv/EACIRAQEAAgEEAgMAAAAAAAAAAAABAhEDITESQVFhEzKhcf/aAAwDAQACEAMQAAAB4ltRFOu7XGLXHaHzAWxBaAa2bUkGHnEfqNPAm6AW8YOYPvN+HezRBSfWmXgACQpbnJj9TlnxWc9qAiVZKucYiPMlnLHYU3mgWEsS05klgz7kQ4iCDKCyxDNi/PSYhtqS92REnAhHnDdtNv0IMinV7hMKYW9EsGyglLqAlPGdlQ1WxRJrKM2tHIt1Si0KQUJYIQ3K7ZAtGmPGWNv8kIG4eI5XiGZJ6m9hvKeZro0WaQ7lFRUXZBVuQ4v/2Q==';
 
@@ -625,85 +476,7 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .catch(error => console.error("Error fetching the file:", error));
 
-    // async function shareAlternative(mode) {
-    //     // Shuffle and pick imageAmt of random images
-    //     const shuffledUrls = imageUrls.sort(() => 0.5 - Math.random());
-    //     var selectedUrls = shuffledUrls.slice(0, imageAmt);
-    //     if(isEnglish){
-    //         let number = Math.min(selectedUrls.length, imageUrlsEN.length);
-    //         for (let i = 0; i < number; i++) {
-    //             selectedUrls[i] = imageUrlsEN[i];
-    //         }
-    //     }
-    //     else {
-    //         let number = Math.min(selectedUrls.length, imageUrlsCN.length);
-    //         for (let i = 0; i < number; i++) {
-    //             selectedUrls[i] = imageUrlsCN[i];
-    //         }
-    //     }
-    //     selectedUrls = selectedUrls.sort(() => 0.5 - Math.random());
-    //     //console.log(selectedUrls);
-
-
-    //   // Fetch images and convert to File objects
-    //   const filePromises = selectedUrls.map((url, index) =>
-    //     fetchImageAsFile(url, `image${index + 1}.jpg`)
-    //   );
-
-    //   const files = (await Promise.all(filePromises)).filter(Boolean); // Remove null values if fetch fails
-
-    //   if (mode == 0){
-    //           // Check if multiple file sharing is supported
-    //   if (files.length > 0 && navigator.canShare && navigator.canShare({ files })) {
-    //     try {
-    //       await navigator.share({
-    //         text: getLines(2),
-    //         files
-    //       });
-    //       //console.log("Shared successfully!");
-    //     } catch (error) {
-    //       //console.error("Sharing failed", error);
-    //     }
-    //   } else {
-    //     //console.log("Your browser does not support sharing multiple files or image fetch failed.");
-    //   }
-    //   }
-    //   else if (mode == 1) {
-    //           // Check if multiple file sharing is supported
-    //   if (files.length > 0 && navigator.canShare && navigator.canShare({ files })) {
-    //     try {
-    //       await navigator.share({
-    //         text: getLinesXHS(2),
-    //         files
-    //       });
-    //       //console.log("Shared successfully!");
-    //     } catch (error) {
-    //       //console.error("Sharing failed", error);
-    //     }
-    //   } else {
-    //     //console.log("Your browser does not support sharing multiple files or image fetch failed.");
-    //   }
-    //   }
-    // }
-
-    //document.getElementById("shareAlt").addEventListener("click", shareAlternative);
-
-    /*--------------------------------------------------------------------------------------------*/
-
-
-    //Preloaded content
-    //var line;
     var lineCN;
-
-    /** <--- Preload Content ---> **/
-    //Had to hardlink the text file now because of CORS security policy
-    //fetch("https://raw.githubusercontent.com/Monaruku/Monaruku.github.io/refs/heads/main/LineEnglish.txt") // Replace with actual file path
-    //    .then(response => response.text())
-    //    .then(text => {
-    //        const lines = text.split('\n').filter(line => line.trim() !== '');
-    //        line = lines;
-    //    })
-    //.catch(error => console.error("Error fetching the file:", error));
 
     fetch("https://raw.githubusercontent.com/Monaruku/Monaruku.github.io/refs/heads/main/LineChinese.txt") // Replace with actual file path
         .then(response => response.text())
@@ -716,16 +489,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     //var lineXHS;
     var lineCNXHS;
-
-    /** <--- Preload Content ---> **/
-    //Had to hardlink the text file now because of CORS security policy
-    //fetch("https://raw.githubusercontent.com/Monaruku/Monaruku.github.io/refs/heads/main/LineEnglish_XHS.txt") // Replace with actual file path
-    //    .then(response => response.text())
-    //    .then(text => {
-    //const linesXHS = text.split('\n').filter(line => line.trim() !== '');
-    //        lineXHS = text;
-    //    })
-    //.catch(error => console.error("Error fetching the file:", error));
 
     fetch("https://raw.githubusercontent.com/Monaruku/Monaruku.github.io/refs/heads/main/LineChinese_XHS.txt")
         .then(response => response.text())
@@ -831,22 +594,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         }
 
-        //document.getElementById('output').textContent = "Randomly Selected Lines:\n" + randomLines.join('\n');
-        //Basically now the two mode is just to prompt alert or not
-        // if (mode == 1) {
-        //     const textTC = randomLines.toString();
-        //     //console.log(textTC);
-        //     window.focus();
-        //     navigator.clipboard.writeText(textTC);
-        //     alert(isEnglish ? "Text copied! Paste it onto Google Review." : "复制成功！请粘贴在下一页的谷歌评论。");
-        // }
-        // else if (mode == 2) {
-        //     const textTC = randomLines.toString();
-        //     //console.log(textTC);
-        //     window.focus();
-        //     navigator.clipboard.writeText(textTC);
-        //     return textTC;
-        // }
         const textTC = randomLines.toString();
         if (mode == 1) {
             try {
@@ -886,23 +633,6 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll('.card').forEach(card => {
         card.addEventListener('click', async function (e) {
             const platform = this.id;
-            /*if (platform == 'others_fixed') {
-    shareAlternative();
-} else if (platform == 'lang') {
-    // Do nothing - this is language switcher
-} else {
-    //Check if can use web share API level 2
-    if (navigator.canShare && navigator.canShare({ files: [new File(["test"], "test.txt", { type: "text/plain" })] })) {
-        //Copy Share Text
-        getLines();
-        shareImages();
-        return true;
-    } else {
-        alert("Web Share API Level 2 is NOT supported. Sharing multiple files may not work.");
-        return false;
-    }
-}
-    */
             if (platform == 'rednote') {
 
                 //Check if the device have Rednote installed or not before redirecting
@@ -1013,167 +743,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     });
-
-    /*document.querySelectorAll('.card').forEach(card => {
-        card.addEventListener('click', function (e) {
-            const platform = this.id;
-            else {
-                const actionType = this.textContent;
-                alert(`You are about to ${actionType.toLowerCase()} on ${platform}!`);
-                // Here you would implement the functionality for other platforms
-            }
-        });
-    });
-    */
-
-    /*
-    // Add active state for touch devices
-    document.querySelectorAll('.action-button').forEach(button => {
-        // Touch start - add active class
-        button.addEventListener('touchstart', function () {
-            this.classList.add('button-active');
-        }, { passive: true });
-
-        // Touch end - remove active class
-        button.addEventListener('touchend', function () {
-            this.classList.remove('button-active');
-        }, { passive: true });
-
-        // Click event
-        button.addEventListener('click', function (e) {
-            e.stopPropagation(); // Prevent triggering parent card click
-            const platform = this.parentElement.querySelector('h3').textContent.trim();
-
-            // Check if we have a dedicated link for this platform
-            if (links[platform]) {
-                if (links[platform] == 'Red note') {
-
-                    //Check if the device have Rednote installed or not before redirecting
-                    var fallbackToStore = function () {
-                        window.location = 'https://www.xiaohongshu.com/user/profile/60ba509f0000000001008605';
-                    };
-                    var openApp = function () {
-                        window.location = 'xhsdiscover://user/60ba509f0000000001008605';
-                    };
-
-                    openApp();
-                    setTimeout(fallbackToStore, 700);
-
-                    //shareToRedNote();
-                }
-                //lazy way of doing this
-                else if(links[platform] == links['Google review']) {
-                    //Had to hardcode https link to read text file, or else chrome's security policy will block it
-                    getLines(1)
-                    window.open(links['Google review'], '_blank');
-                }
-                else if (links[platform] == links['Facebook']) {
-                    var userAgent = navigator.userAgent || navigator.vendor || window.opera;
-
-                    if (/android/i.test(userAgent)) {
-                        window.open(links['Facebook'], '_blank');
-                    }
-
-                    // iOS detection from: http://stackoverflow.com/a/9039885/177710
-                    if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-                        //Check if the device have Rednote installed or not before redirecting
-                        var fallbackToStore = function () {
-                            window.location = links['Facebook'];
-                        };
-                        var openApp = function () {
-                            window.location = links['FacebookIOS'];
-                        };
-
-                        openApp();
-                        setTimeout(fallbackToStore, 1700);
-
-
-                        //window.open(links['FacebookIOS'], '_blank');
-                    }
-                }
-                else if (links[platform] == links['TikTok']) {
-                    if (tiktokAuthentication.checkTikTokToken()) {
-                        window.location.href = "tiktok_post_vid.html";
-                    } else {
-                        window.location = tiktokAuthenticationUrl;
-                    }
-                }
-                //how many else if do I need
-                else if(links[platform] == links['Share']) {
-                    //Check if can use web share API level 2
-                    if (navigator.canShare && navigator.canShare({ files: [new File(["test"], "test.txt", { type: "text/plain" })] })) {
-                    //Copy Share Text
-                    getLines();
-                    shareImages();
-                    return true;
-                    } else {
-                        alert("Web Share API Level 2 is NOT supported. Sharing multiple files may not work.");
-                        return false;
-                    }
-                }
-                //how many else if do I need
-                else if (links[platform] == links['Share']) {
-                    //Copy Share Text
-                    navigator.clipboard.writeText(shareText);
-                    alert("Text copied! Please use it as the content for the post");
-                    if (navigator.share) {
-                        fetch(imageURL) // Replace with your image URL
-                            .then(response => response.blob())
-                            .then(blob => {
-                                const file = new File([blob], 'image.jpg', { type: blob.type });
-
-                                navigator.share({
-                                    files: [file]
-                                    //url: 'This is actually just plain text' //Somehow parsing my website url in it as well
-                                }).then(() => {
-                                    console.log('Content shared successfully!');
-                                }).catch((error) => {
-                                    console.error('Error sharing:', error);
-                                });
-                            }).catch(error => console.error('Error fetching image:', error));
-                    } else {
-                        alert('Web Share API is not supported in your browser.');
-                    }
-                }
-                else {
-                    window.open(links[platform], '_blank');
-                }
-            } else {
-                const actionType = this.textContent;
-                alert(`You are about to ${actionType.toLowerCase()} on ${platform}!`);
-                // Here you would implement the functionality for other platforms
-            }
-        });
-    });*/
-
-    // Also add direct click functionality to the card for Facebook and Instagram
-    // document.querySelectorAll('.card').forEach(card => {
-    //     const platform = card.querySelector('h3').textContent.trim();
-
-    //     if (links[platform]) {
-    //         card.style.cursor = 'pointer';
-
-    //         // Add tap/click functionality
-    //         card.addEventListener('click', function (e) {
-    //             // Only trigger if they didn't click the button directly
-    //             if (!e.target.classList.contains('action-button')) {
-    //                 window.open(links[platform], '_blank');
-    //             }
-    //         });
-
-    //         // Add active state for touch
-    //         card.addEventListener('touchstart', function () {
-    //             if (!this.querySelector('.action-button:active')) {
-    //                 this.classList.add('card-active');
-    //             }
-    //         }, { passive: true });
-
-    //         card.addEventListener('touchend', function () {
-    //             this.classList.remove('card-active');
-    //         }, { passive: true });
-    //     }
-    // });
-
     // Prevent zoom on double tap for iOS
     document.addEventListener('touchend', function (event) {
         const now = Date.now();
