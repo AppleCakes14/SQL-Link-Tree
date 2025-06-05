@@ -495,7 +495,7 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(response => response.text())
         .then(text => {
             // Split the text using '@' as the delimiter
-            const lineCNXHS1 = text.split('@').map(part => part.trim());
+            const lineCNXHS1 = text.split('\n').map(part => part.trim());
             lineCNXHS = lineCNXHS1;
             //console.log(lineCNXHS);
         })
