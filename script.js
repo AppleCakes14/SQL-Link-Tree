@@ -490,7 +490,8 @@ document.addEventListener("DOMContentLoaded", function () {
     //var lineXHS;
     var lineCNXHS;
 
-    fetch("https://raw.githubusercontent.com/Monaruku/Monaruku.github.io/refs/heads/main/LineChinese_XHS.txt")
+    fetch("https://raw.githubusercontent.com/AppleCakes14/SQL-Link-Tree/main/LineChinese_XHS.txt")
+        //https://raw.githubusercontent.com/Monaruku/Monaruku.github.io/refs/heads/main/LineChinese_XHS.txt
         .then(response => response.text())
         .then(text => {
             // Split the text using '@' as the delimiter
@@ -575,8 +576,9 @@ document.addEventListener("DOMContentLoaded", function () {
     function getLinesXHS(mode) {
         const randomLines = [];
         const usedIndexes = new Set();
-        const hashtags = "#einvoice #einvoiceseminar #myinvois #lhdn #电子发票 #nationwideseminar \
-                        #SQLAccounting #sqlestream #Einvoice2025 #EInvoiceReady #einvoicemalaysia #SQL #sqlseminar #einvois";
+        const hashtags = "#einvoice #einvoiceseminar #myinvois #lhdn #电子发票 #nationwideseminar " +
+                        "#SQLAccounting #sqlestream #Einvoice2025 #EInvoiceReady #einvoicemalaysia " +
+                        "#SQL #sqlseminar #einvois";
 
         while (randomLines.length < 1) {
             if (isEnglish) {
