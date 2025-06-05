@@ -575,20 +575,24 @@ document.addEventListener("DOMContentLoaded", function () {
     function getLinesXHS(mode) {
         const randomLines = [];
         const usedIndexes = new Set();
+        const hashtags = "#einvoice #einvoiceseminar #myinvois #lhdn #电子发票 #nationwideseminar \
+                        #SQLAccounting #sqlestream #Einvoice2025 #EInvoiceReady #einvoicemalaysia #SQL #sqlseminar #einvois";
 
         while (randomLines.length < 1) {
             if (isEnglish) {
                 const randomIndex = Math.floor(Math.random() * lineCNXHS.length);
                 if (!usedIndexes.has(randomIndex)) {
                     usedIndexes.add(randomIndex);
-                    randomLines.push(lineCNXHS[randomIndex]);      //Only received chinese text
+                    mixedLine = lineCNXHS[randomIndex] + "\n\n" + hashtags; // Append hashtags to the line
+                    randomLines.push(mixedLine);      //Only received chinese text
                 }
             }
             else {
                 const randomIndex = Math.floor(Math.random() * lineCNXHS.length);
                 if (!usedIndexes.has(randomIndex)) {
                     usedIndexes.add(randomIndex);
-                    randomLines.push(lineCNXHS[randomIndex]);
+                    mixedLine = lineCNXHS[randomIndex] + "\n\n" + hashtags; // Append hashtags to the line
+                    randomLines.push(mixedLine);
                 }
             }
 
@@ -631,115 +635,60 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     document.querySelectorAll('.card').forEach(card => {
-        card.addEventListener('click', async function (e) {
+        card.addEventListener('click', async function () {
             const platform = this.id;
-            if (platform == 'rednote') {
-
-                //Check if the device have Rednote installed or not before redirecting
+            
+            // Handle RedNote
+            if (platform === 'rednote') {
                 logClick(2);
-                var fallbackToStore = function () {
+                window.location = 'xhsdiscover://user/60ba509f0000000001008605';
+                setTimeout(() => {
                     window.open('https://www.xiaohongshu.com/user/profile/60ba509f0000000001008605', '_blank');
-                };
-                var openApp = function () {
-                    window.location = 'xhsdiscover://user/60ba509f0000000001008605';
-                };
-
-                openApp();
-                setTimeout(fallbackToStore, 1500);
-
-                //shareToRedNote();
-            }
-            //how many else if do I need
-            else if (platform == 'others') {             //Currently in whatsapp mode
-                //Check if can use web share API level 2
+                }, 1500);
+            } 
+            // Handle sharing options
+            else if (platform === 'others' || platform === 'others_insta') {
                 if (navigator.canShare && navigator.canShare({ files: [new File(["test"], "test.txt", { type: "text/plain" })] })) {
-                    //Copy Share Text
-                    //var line = getLines(2);
                     logClick(4);
                     shareImages(2);
-                    return true;
                 } else {
                     alert("Web Share API Level 2 is NOT supported. Sharing multiple files may not work.");
-                    return false;
                 }
             }
-            else if (platform == 'others_insta') {
-                //Check if can use web share API level 2
-                if (navigator.canShare && navigator.canShare({ files: [new File(["test"], "test.txt", { type: "text/plain" })] })) {
-                    //Copy Share Text
-                    //var line = getLines(2);
-                    logClick(4);
-                    // if(isIOS){
-                    //     shareImages(2);
-                    // }
-                    // else {
-                    //     shareImages(2);
-                    // }
-                    shareImages(2);
-                    return true;
-                } else {
-                    alert("Web Share API Level 2 is NOT supported. Sharing multiple files may not work.");
-                    return false;
-                }
-            }
-            else if (platform == 'others_fixed') {
-                //shareAlternative(0);
-            }
-            else if (platform == 'others_xhs') {
-                // //Check if can use web share API level 2
-                // if (navigator.canShare && navigator.canShare({ files: [new File(["test"], "test.txt", { type: "text/plain" })] })) {
-                //     //Copy Share Text
-                //     //var line = getLinesXHS(2);
-                //     shareImages(2);
-                //     return true;
-                // } else {
-                //     alert("Web Share API Level 2 is NOT supported. Sharing multiple files may not work.");
-                //     return false;
-                // }
+            // Handle XHS sharing
+            else if (platform === 'others_xhs') {
                 try {
-                    const shareText = getLinesXHS(2); // Just get the text without clipboard operations
-
-                    // Try to share with files first
-                    if (savedImageFiles && savedImageFiles.length > 0) {
-                        const validImage = savedImageFiles.find(file => file && file.size > 0);
-
+                    const shareText = getLinesXHS(2);
+                    
+                    // Try sharing with image if available
+                    if (savedImageFiles?.length > 0) {
+                        const validImage = savedImageFiles.find(file => file?.size > 0);
                         if (validImage && navigator.canShare && navigator.canShare({ files: [validImage] })) {
-                            await navigator.share({
-                                text: shareText,
-                                files: [validImage]
-                            });
-                            return true;
+                            await navigator.share({ text: shareText, files: [validImage] });
+                            return;
                         }
                     }
-
-                    // If sharing with files fails or isn't supported, fall back to text-only
-                    await navigator.share({
-                        text: shareText
-                    });
-                    return true;
-
+                    
+                    // Fallback to text-only sharing
+                    await navigator.share({ text: shareText });
                 } catch (error) {
                     console.error("XHS sharing failed:", error);
-
-                    // Final fallback - try to copy to clipboard with focus attempt
                     try {
                         window.focus();
-                        document.hasFocus() ?
-                            await navigator.clipboard.writeText(getLinesXHS(2)) :
+                        if (document.hasFocus()) {
+                            await navigator.clipboard.writeText(getLinesXHS(2));
+                        } else {
                             alert("Please focus the window and try again.");
+                        }
                     } catch (clipboardError) {
                         prompt("Please copy this text manually:", getLinesXHS(2));
                     }
-                    return false;
                 }
             }
-            else if (platform == 'fb') {
+            // Handle social links
+            else if (platform === 'fb' || platform === 'insta') {
                 window.open(links[platform], '_blank');
-                logClick(1);
-            }
-            else if (platform == 'insta') {
-                window.open(links[platform], '_blank');
-                logClick(3);
+                logClick(platform === 'fb' ? 1 : 3);
             }
         });
     });
