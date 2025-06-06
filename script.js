@@ -485,20 +485,18 @@ document.addEventListener("DOMContentLoaded", function () {
     function logClick(mode) {
         const formUrl = "https://docs.google.com/forms/u/0/d/e/1FAIpQLSfKpaxNXscDxl4cIdAb2RAqkVSVzsSSdhxUHdC3fuH3YGumgA/formResponse";
         const formData = new FormData();
-        //https://docs.google.com/forms/d/e/1FAIpQLSfKpaxNXscDxl4cIdAb2RAqkVSVzsSSdhxUHdC3fuH3YGumgA/viewform
-        //https://docs.google.com/forms/u/0/d/e/1FAIpQLSfKpaxNXscDxl4cIdAb2RAqkVSVzsSSdhxUHdC3fuH3YGumgA/formResponse
         // Replace this with the name attribute of your form field
         if (mode == 1) {                                         //Facebook
-            formData.append("entry.0", "Facebook");
+            formData.append("entry.1818386833", "Facebook");
         }
         else if (mode == 2) {                                   //Rednote
-            formData.append("entry.0", "Rednote");
+            formData.append("entry.1818386833", "Rednote");
         }
         else if (mode == 3) {                                   //Instagram
-            formData.append("entry.0", "Instagram");
+            formData.append("entry.1818386833", "Instagram");
         }
         else if (mode == 4) {                                   //Share
-            formData.append("entry.0", "Share");
+            formData.append("entry.1818386833", "Share");
         }
 
         fetch(formUrl, {
