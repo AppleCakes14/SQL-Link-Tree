@@ -483,7 +483,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     //Click Analytics
     function logClick(mode) {
-        const formUrl = "https://docs.google.com/forms/u/0/d/e/1FAIpQLSdZy1xdTPov0ANI9atEkf9Vp9e36V1lvOKFspzHqUYmxXQNvQ/formResponse";
+        const formUrl = "https://forms.gle/SNn7Z84qXrnzBRkG8";
         const formData = new FormData();
 
         // Replace this with the name attribute of your form field
@@ -620,11 +620,22 @@ document.addEventListener("DOMContentLoaded", function () {
             // Handle RedNote
             if (platform === 'rednote') {
                 logClick(2);
-                window.location = 'xhsdiscover://user/60ba509f0000000001008605';
-                setTimeout(() => { 
+                
+                // Check if user is on a mobile device
+                const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+                
+                if (isMobile) {
+                    // Use deeplink for mobile devices
+                    window.location = 'xhsdiscover://user/60ba509f0000000001008605';
+                    
+                    // Fallback to web URL after a delay in case the app isn't installed
+                    setTimeout(() => {
+                        window.open('https://www.xiaohongshu.com/user/profile/60ba509f0000000001008605', '_blank');
+                    }, 1500);
+                } else {
                     window.open('https://www.xiaohongshu.com/user/profile/60ba509f0000000001008605', '_blank');
-                }, 1500);
-            } 
+                }
+            }
             // Handle sharing options
             else if (platform === 'others' || platform === 'others_insta') {
                 if (navigator.canShare && navigator.canShare({ files: [new File(["test"], "test.txt", { type: "text/plain" })] })) {
