@@ -483,20 +483,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
     //Click Analytics
     function logClick(mode) {
-        const formUrl = "https://docs.google.com/forms/u/0/d/e/1FAIpQLSfKpaxNXscDxl4cIdAb2RAqkVSVzsSSdhxUHdC3fuH3YGumgA/formResponse";
+        const formUrl = "https://docs.google.com/forms/u/0/d/e/1FAIpQLSdZy1xdTPov0ANI9atEkf9Vp9e36V1lvOKFspzHqUYmxXQNvQ/formResponse";
         const formData = new FormData();
+
         // Replace this with the name attribute of your form field
         if (mode == 1) {                                         //Facebook
-            formData.append("entry.1818386833", "Facebook");
+            formData.append("entry.2141122930", "Facebook");
         }
         else if (mode == 2) {                                   //Rednote
-            formData.append("entry.1818386833", "Rednote");
+            formData.append("entry.2141122930", "Rednote");
         }
         else if (mode == 3) {                                   //Instagram
-            formData.append("entry.1818386833", "Instagram");
+            formData.append("entry.2141122930", "Instagram");
         }
         else if (mode == 4) {                                   //Share
-            formData.append("entry.1818386833", "Share");
+            formData.append("entry.2141122930", "Share");
         }
 
         fetch(formUrl, {
@@ -626,13 +627,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (isMobile) {
                     // Use deeplink for mobile devices
                     window.location = 'xhsdiscover://user/60ba509f0000000001008605';
-                }
-                // Fallback to web URL after a delay in case the app isn't installed
-                setTimeout(() => {
+                    
+                    // Fallback to web URL after a delay in case the app isn't installed
+                    setTimeout(() => {
+                        window.open('https://www.xiaohongshu.com/user/profile/60ba509f0000000001008605', '_blank');
+                    }, 1500);
+                } else {
                     window.open('https://www.xiaohongshu.com/user/profile/60ba509f0000000001008605', '_blank');
-                }, 1500);
+                }
             }
-            
             // Handle sharing options
             else if (platform === 'others' || platform === 'others_insta') {
                 if (navigator.canShare && navigator.canShare({ files: [new File(["test"], "test.txt", { type: "text/plain" })] })) {
