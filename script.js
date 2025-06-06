@@ -489,16 +489,16 @@ document.addEventListener("DOMContentLoaded", function () {
         //https://docs.google.com/forms/u/0/d/e/1FAIpQLSfKpaxNXscDxl4cIdAb2RAqkVSVzsSSdhxUHdC3fuH3YGumgA/formResponse
         // Replace this with the name attribute of your form field
         if (mode == 1) {                                         //Facebook
-            formData.append("entry.2141122930", "Facebook");
+            formData.append("entry.0", "Facebook");
         }
         else if (mode == 2) {                                   //Rednote
-            formData.append("entry.2141122930", "Rednote");
+            formData.append("entry.0", "Rednote");
         }
         else if (mode == 3) {                                   //Instagram
-            formData.append("entry.2141122930", "Instagram");
+            formData.append("entry.0", "Instagram");
         }
         else if (mode == 4) {                                   //Share
-            formData.append("entry.2141122930", "Share");
+            formData.append("entry.0", "Share");
         }
 
         fetch(formUrl, {
